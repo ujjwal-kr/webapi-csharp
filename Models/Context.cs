@@ -2,11 +2,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TodoApi.Models
 {
-    public class TodoContext : DbContext
+    public class Context : DbContext
     {
-        public TodoContext(DbContextOptions<TodoContext> options)
+        public Context(DbContextOptions<Context> options)
         :base(options) {}
 
+        public DbSet<Project> Projects {get; set;}
         public DbSet<TodoItem> TodoItems {get; set;}
     }
 }    

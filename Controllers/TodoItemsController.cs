@@ -13,9 +13,9 @@ namespace TodoApi.Controllers
     [ApiController]
     public class TodoItemsController : ControllerBase
     {
-        private readonly TodoContext _context;
+        private readonly Context _context;
 
-        public TodoItemsController(TodoContext context)
+        public TodoItemsController(Context context)
         {
             _context = context;
         }
