@@ -32,10 +32,6 @@ namespace TodoApi
         public async Task<ActionResult<Project>> GetProject(long id)
         {
             var project = await _context.Projects.FindAsync(id);
-            var todos = _context.TodoItems
-            .Where(b => b.ProjectId == id)
-            .ToList();
-            Console.WriteLine(todos);
 
             if (project == null)
             {
@@ -43,6 +39,17 @@ namespace TodoApi
             }
 
             return project;
+        }
+
+        [HttpGet("{id}/todos")]
+        public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodo(long id)
+        {
+            var todos = await _context.TodoItems
+                .Where(t => t.ProjectId == id)
+                .ToListAsync();
+
+            if (todos == null) return NotFound(new {message ="Todos not found or server error"});
+            return todos; 
         }
 
         // PUT: api/Projects/5

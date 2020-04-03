@@ -9,8 +9,6 @@ public class Project {
     public string Name {get; set;}
     [Required]
     public string Description {get; set;}
-
-    public List<TodoItem> TodoItems {get; set;}
 }
 
 
@@ -24,5 +22,4 @@ public class TodoItem {
 
     [Required]
     public int ProjectId {get; set;}
-    public Project Project;
 }
