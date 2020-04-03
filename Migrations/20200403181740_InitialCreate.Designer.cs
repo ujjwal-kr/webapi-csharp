@@ -9,7 +9,7 @@ using TodoApi.Models;
 namespace TodoApi.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20200403123604_InitialCreate")]
+    [Migration("20200403181740_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

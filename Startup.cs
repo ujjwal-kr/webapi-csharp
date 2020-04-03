@@ -30,7 +30,7 @@ namespace TodoApi
             // services.AddDbContext<TodoContext>(opt =>
             //    opt.UseInMemoryDatabase("TodoList"));
             services.AddDbContext<Context>(opt =>
-              opt.UseMySQL("server=localhost;database=ch-projects;user=root;password=password"));
+               opt.UseSqlite("Data Source=todolist.db"));
             services.AddControllers();
         }
 
