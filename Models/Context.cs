@@ -8,7 +8,6 @@ namespace TodoApi.Models
         :base(options) {}
 
         public DbSet<Project> Projects {get; set;}
-        public DbSet<TodoItem> TodoItems {get; set;
-}
+        public DbSet<TodoItem> TodoItems {get; set;}
     }
 }    

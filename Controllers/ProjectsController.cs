@@ -109,6 +109,8 @@ namespace TodoApi
             _context.Projects.Remove(project);
             await _context.SaveChangesAsync();
 
+            await deleteTodos(id);
+
             return project;
         }
 
@@ -116,5 +118,21 @@ namespace TodoApi
         {
             return _context.Projects.Any(e => e.ProjectId == id);
         }
+
+        private async Task<bool> deleteTodos(long id)
+        {
+            var todos = await _context.TodoItems
+                .Where(t => t.ProjectId == id)
+                .ToListAsync(); 
+
+            foreach(TodoItem todo in todos)
+            {
+                _context.TodoItems.Remove(todo);
+                await _context.SaveChangesAsync();
+            }
+
+            return true;
+        }
+
     }
 }
