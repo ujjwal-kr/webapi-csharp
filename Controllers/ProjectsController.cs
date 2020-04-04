@@ -20,14 +20,12 @@ namespace TodoApi
             _context = context;
         }
 
-        // GET: api/Projects
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
         {
             return await _context.Projects.ToListAsync();
         }
 
-        // GET: api/Projects/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Project>> GetProject(long id)
         {
@@ -52,41 +50,19 @@ namespace TodoApi
             return todos; 
         }
 
-        // PUT: api/Projects/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProject(long id, Project project)
+        public async Task<ActionResult<Project>> PutProject(long id, [FromBody]Project proj)
         {
-            if (id != project.ProjectId)
-            {
-                return BadRequest();
-            }
+            var project = await _context.Projects.FindAsync(id);
+            if (proj == null) return NotFound();
 
-            _context.Entry(project).State = EntityState.Modified;
+            project.Name = proj.Name;
+            project.Description = proj.Description;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProjectExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            await _context.SaveChangesAsync();
+            return proj;
         }
 
-        // POST: api/Projects
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
         public async Task<ActionResult<Project>> PostProject(Project project)
         {
