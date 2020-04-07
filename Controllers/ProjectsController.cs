@@ -31,10 +31,7 @@ namespace TodoApi
         {
             var project = await _context.Projects.FindAsync(id);
 
-            if (project == null)
-            {
-                return NotFound();
-            }
+            if (project == null) return NotFound();
 
             return project;
         }
@@ -72,15 +69,11 @@ namespace TodoApi
             return CreatedAtAction("GetProject", new { id = project.ProjectId }, project);
         }
 
-        // DELETE: api/Projects/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Project>> DeleteProject(long id)
         {
             var project = await _context.Projects.FindAsync(id);
-            if (project == null)
-            {
-                return NotFound();
-            }
+            if (project == null) return NotFound();
 
             _context.Projects.Remove(project);
             await _context.SaveChangesAsync();
